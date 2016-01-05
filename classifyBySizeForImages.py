@@ -6,12 +6,25 @@
 """
 from PIL import Image
 from pathlib import Path
+import argparse
 
-path = Path(input('検索を始めるディレクトリ: '))
+parser = argparse.ArgumentParser()
+parser.add_argument("--dir", help="検索を始めるディレクトリ")
+parser.add_argument("width", type=int, help="image width px")
+parser.add_argument("height", type=int, help="image height px")
+args = parser.parse_args()
+
+if not args.dir: # デフォルトの引数の設定
+    path = './'
+else:
+    path = args.dir
+
+path = Path(path)
 if not path.is_dir():
     exit()
-width = int(input('width(px): '))
-height = int(input('height(px): '))
+
+width = args.width
+height = args.height
 if height < 1 and width < 1:
     exit()
 else:
